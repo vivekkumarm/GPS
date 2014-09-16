@@ -1,0 +1,4 @@
+C:\Users\jt939\Documents\Visual Studio 2012\Projects\JeevanGPS\JeevanGPS.UserManagement\bin\Debug\JeevanGPS.UserManagement.exe.config
+C:\Users\jt939\Documents\Visual Studio 2012\Projects\JeevanGPS\Service\JeevanGPS.UserManagement\bin\Debug\JeevanGPS.UserManagement.exe.config
+D:\GPS\JeevanGPS\JeevanGPS\Service\JeevanGPS.UserManagement\obj\Debug\JeevanGPS.UserManagement.csprojResolveAssemblyReference.cache
+D:\GPS\JeevanGPS\JeevanGPS\Service\JeevanGPS.UserManagement\bin\Debug\JeevanGPS.UserManagement.exe.config

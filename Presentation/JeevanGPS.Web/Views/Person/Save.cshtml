@@ -1,0 +1,117 @@
+﻿@model JeevanGPS.BO.Person
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")  
+    
+}
+
+
+<h2>Index</h2>
+@if (TempData["Success"] != null)
+{
+    <div style="background-color: green">
+        <p><strong>Success:</strong> @TempData["Success"].ToString()</p>
+    </div>
+}
+
+ <div style="background-color: red">
+        <div id="errorMessages"></div>
+ </div>
+
+  @using (Html.BeginForm("Save", "Person", FormMethod.Post)) {
+   
+    @Html.ValidationSummary(false, "Please correct these errors")
+
+    <fieldset>
+        <legend>Person</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name, "*")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email, "*")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Age)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Age)
+            @Html.ValidationMessageFor(model => model.Age, "*")
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+            <input type="button" name="Save" value="SaveJSON" id="btnSave" title="Save" onclick="javascript: CreatePerson();" />  
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+
+       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> 
+       <script type="text/javascript">
+
+           var apiUrl = '/Person/SaveJSON';
+
+           
+
+           function CreatePerson() {           
+               $.ajax({
+                   type: 'Post',
+                   contentType: "application/json;charset=utf-8",
+                   url: apiUrl,
+                   data: JSON.stringify({
+                       Id: $('#@(Html.IdFor(m => m.Id))').val(),
+                       Name: $('#@(Html.IdFor(m => m.Name))').val(),
+                       Email: $('#@(Html.IdFor(m => m.Email))').val(),
+                       Age: $('#@(Html.IdFor(m => m.Age))').val()
+                   }),
+                   dataType: 'json',
+                   success: function (result) {
+                       if (!result.success) {
+                           
+                           //for (var error in result.errors) {                            
+                           //    $('#errorMessages').append(result.errors[0].Email + '<br />');
+                           //}
+
+                           $.each(result.errors, function () {
+                               $('#errorMessages').append(this + '<br />');
+                           });
+                       }
+                       else {
+                           $('#@(Html.IdFor(m => m.Id))').val("");
+                           $('#@(Html.IdFor(m => m.Name))').val("");
+                           $('#@(Html.IdFor(m => m.Email))').val("");
+                           $('#@(Html.IdFor(m => m.Age))').val("");
+                       }
+
+                   },
+                   error: function (result) {
+                       alert('error');
+                   }
+
+               });
+           }
+
+           
+     
+
+    </script>
+    
+</div>
+
